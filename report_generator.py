@@ -18,7 +18,6 @@ Public interface
       explained_records,
       output_path,
       meta,
-      *,
       title=...,
       study_id=...,
       show_raw_text=...,
@@ -39,7 +38,6 @@ def generate_html_report(
     explained_records: list[dict],
     output_path: Path,
     meta: dict,
-    *,
     title: str = "RUXAILAB Usability Study",
     study_id: str = "",
     show_raw_text: bool = True,
@@ -48,13 +46,18 @@ def generate_html_report(
     """Write the full HTML report to ``output_path``."""
     merged: dict[str, Any] = {
         **meta,
-        "report_title": title,
-        "study_id": study_id,
         "show_raw_text": show_raw_text,
         "show_reasoning": show_reasoning,
     }
     generated_ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    body = _build_body(report_data, explained_records, merged, generated_ts=generated_ts)
+    body = _build_body(
+        report_data,
+        explained_records,
+        merged,
+        title=title,
+        study_id=study_id,
+        generated_ts=generated_ts,
+    )
     full = (
         _HTML_SHELL.replace("{{BODY}}", body)
         .replace("{{GENERATED}}", html.escape(generated_ts))
@@ -73,10 +76,17 @@ def _build_body(
     explained_records: list[dict],
     meta: dict,
     *,
+    title: str,
+    study_id: str,
     generated_ts: str,
 ) -> str:
     parts = [
-        _section_header(report_data, meta, generated_ts=generated_ts),
+        _section_header(
+            meta,
+            title=title,
+            study_id=study_id,
+            generated_ts=generated_ts,
+        ),
         _section_kpi_row(report_data),
         _section_heuristic_chart(report_data),
         _section_top_issues(report_data),
@@ -92,7 +102,13 @@ def _build_body(
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def _section_header(report_data: Any, meta: dict, *, generated_ts: str) -> str:
+def _section_header(
+    meta: dict,
+    *,
+    title: str,
+    study_id: str,
+    generated_ts: str,
+) -> str:
     method = html.escape(str(meta.get("method", "nielsen")).upper())
     idir = html.escape(str(meta.get("input_dir", "")))
     files = meta.get("total_files", "?")
@@ -102,8 +118,8 @@ def _section_header(report_data: Any, meta: dict, *, generated_ts: str) -> str:
         if min_c is not None
         else ""
     )
-    title = html.escape(str(meta.get("report_title", "Automated Usability Analysis")))
-    sid = str(meta.get("study_id") or "").strip()
+    title_esc = html.escape(title)
+    sid = str(study_id or "").strip()
     sid_bit = (
         f' &nbsp;·&nbsp; Study ID: <code>{html.escape(sid)}</code>'
         if sid
@@ -117,7 +133,7 @@ def _section_header(report_data: Any, meta: dict, *, generated_ts: str) -> str:
     <span class="logo-text">UXAILAB</span>
     <span class="report-badge">Usability Analysis Report</span>
   </div>
-  <h1>{title}</h1>
+  <h1>{title_esc}</h1>
   <p class="subtitle">
     Method: <strong>{method}</strong> &nbsp;·&nbsp;
     Source: <code>{idir}</code> ({files} file(s)){sid_bit}{min_bit} &nbsp;·&nbsp;

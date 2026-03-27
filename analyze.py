@@ -274,19 +274,19 @@ def main() -> int:
 
     total_files = len({r["source_file"] for r in raw_records})
     generate_html_report(
-        report_data=report_data,
-        explained_records=explained_records,
-        output_path=output_path,
-        title=args.title,
-        study_id=args.study_id,
-        show_raw_text=not args.no_raw_text,
-        show_reasoning=not args.no_reasoning,
-        meta={
+        report_data,
+        explained_records,
+        output_path,
+        {
             "input_dir": str(input_path),
             "method": args.method,
             "min_confidence": args.min_confidence,
             "total_files": total_files,
         },
+        title=args.title,
+        study_id=args.study_id,
+        show_raw_text=not args.no_raw_text,
+        show_reasoning=not args.no_reasoning,
     )
 
     size_kb = output_path.stat().st_size // 1024

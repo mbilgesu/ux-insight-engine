@@ -213,6 +213,8 @@ python3 analyze.py -i transcripts/ -o output/report.html --title "Q4 Study" --mi
 
 ```
 
+After a successful run, open **`output/report.html`** in a browser for the full report (KPI row, heuristic chart, findings, recommendations, and optional raw text / reasoning appendix). That file is produced locally under `output/` (gitignored except `.gitkeep`).
+
 Unit tests: `python3 -m unittest discover -s tests -p 'test_*.py' -t .` (the `-t .` flag puts the project root on `sys.path`).
 
 - **HTML**: `report_generator.generate_html_report` — study summary, per-finding cards, pipeline meta in the header; flags `--no-reasoning` / `--no-raw-text`.
