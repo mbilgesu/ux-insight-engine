@@ -110,6 +110,7 @@ ruxailab-nlp-engine/
 │   ├── survey_responses.csv
 │   └── moderator_notes.txt
 ├── output/                          # generated reports (gitignored except .gitkeep)
+├── docs/images/                     # README screenshots (sample HTML report)
 ├── tests/
 └── README.md
 ```
@@ -131,6 +132,30 @@ transcripts/
                                 ▼
                     output/report.html
 ```
+
+---
+
+## Sample HTML report
+
+Below: screenshots from `python3 analyze.py --input transcripts/` (example title *RUXAILAB Demo Study*). Open **`output/report.html`** locally after running the CLI for the interactive version (expandable reasoning chains, print layout).
+
+### Study overview
+
+Header, KPI row, Nielsen heuristic frequency chart, and top findings.
+
+![Study overview — KPIs, heuristic chart, top findings](docs/images/report-overview.png)
+
+### All findings
+
+Full table with severity, category, source, raw vs normalized text, confidence, and heuristic mapping.
+
+![All findings table](docs/images/report-all-findings.png)
+
+### Recommendations and explainability
+
+Study-level design recommendations and the explainability appendix (full reasoning chains per finding).
+
+![Design recommendations and reasoning appendix](docs/images/report-recommendations-appendix.png)
 
 ---
 
