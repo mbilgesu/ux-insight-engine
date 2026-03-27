@@ -8,4 +8,4 @@ def sus_score(responses: list[int]) -> float:
 
 
 def sus_adjective_rating(score: float) -> str:
-    return sus_adjective_for_score(score)
+    return sus_adjective_for_score(score).lower()
