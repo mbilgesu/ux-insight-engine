@@ -1,1 +1,1 @@
-# Tests package
+"""Unit tests (package marker for unittest discover)."""

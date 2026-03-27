@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from app.services.ruxailab_methodology import HeuristicMatch, map_to_heuristics
+from ruxailab_methodology import HeuristicMatch, map_to_heuristics
 
 
 @dataclass(frozen=True)

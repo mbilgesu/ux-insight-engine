@@ -164,6 +164,10 @@ class HeuristicMatch:
         return _HEURISTIC_META[self.primary]["name"] if self.primary else None
 
     @property
+    def primary_description(self) -> Optional[str]:
+        return _HEURISTIC_META[self.primary]["description"] if self.primary else None
+
+    @property
     def secondary_number(self) -> Optional[int]:
         return int(self.secondary) if self.secondary else None
 

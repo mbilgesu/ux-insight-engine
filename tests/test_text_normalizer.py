@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from app.services.text_normalizer import (
+from text_normalizer import (
     TextNormalizationConfig,
     TextSource,
     get_default_config_for_source,

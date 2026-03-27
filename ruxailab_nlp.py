@@ -14,8 +14,8 @@ See module docstrings in those files for Firestore-oriented data notes.
 
 from __future__ import annotations
 
-from app.services import ruxailab_methodology as _m
-from app.services.text_normalizer import (
+import ruxailab_methodology as _m
+from text_normalizer import (
     NormalizationChange,
     NormalizedRecord,
     PayloadNormalizationConfig,

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import unittest
 
-from app.services.nielsen_mapper import map_issue_to_nielsen
-from app.services.semantic_analysis import analyze_record, analyze_records
-from app.services.text_normalizer import NormalizedRecord, normalize_record
+from nielsen_mapper import map_issue_to_nielsen
+from semantic_analysis import analyze_record, analyze_records
+from text_normalizer import NormalizedRecord, normalize_record
 
 
 class TestSemanticAnalysis(unittest.TestCase):

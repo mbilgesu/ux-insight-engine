@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from app.services.semantic_analysis import analyze_text, normalize_and_analyze
+from semantic_analysis import analyze_text, normalize_and_analyze
 
 
 class TestNormalizeAndSemanticPipeline(unittest.TestCase):
