@@ -96,24 +96,40 @@ That is the difference between a sentiment tool and a usability insight engine.
 
 ```
 ruxailab-nlp-engine/
-├── app/
-│   └── services/
-│       ├── text_normalizer.py       # source-aware cleaning + NormalizedRecord
-│       ├── semantic_analysis.py     # 3-layer signal extraction engine
-│       ├── nielsen_mapper.py        # maps issue_category → Nielsen heuristic 1–10
-│       ├── sus_analyzer.py          # SUS score + adjective rating
-│       ├── nasa_tlx_analyzer.py     # NASA-TLX workload scoring
-│       └── explainability.py        # ExplainedResult: reasoning chain + recommendation
+├── analyze.py                       # CLI entrypoint → JSON or HTML
+├── ingestion.py                     # transcript / CSV → flat record dicts
+├── report_generator.py              # HTML report builder
+├── ruxailab_nlp.py                  # text normalization + Nielsen + SUS + TLX (unified imports)
+├── explainability.py                # semantic analysis + XAI engine (SemanticAnalyzer, reasoning chain)
+├── semantic_analysis.py             # 3-layer rule-based signal extractor (tests / legacy path)
+├── text_normalizer.py               # source-aware cleaning + NormalizedRecord
+├── ruxailab_methodology.py          # Nielsen / SUS / NASA-TLX core
+├── nielsen_mapper.py                # issue_category → heuristic list (report / JSON)
 ├── transcripts/
-│   ├── think_aloud_session1.txt     # sample input (think-aloud)
-│   ├── survey_responses.csv         # sample input (open-ended survey)
-│   └── moderator_notes.txt          # sample input (notes)
-├── output/
-│   └── report.html                  # generated sample report
+│   ├── think_aloud_session1.txt
+│   ├── survey_responses.csv
+│   └── moderator_notes.txt
+├── output/                          # generated reports (gitignored except .gitkeep)
 ├── tests/
-│   └── test_semantic_analysis.py    # labeled utterance test cases
-├── analyze.py                       # CLI entrypoint
 └── README.md
+```
+
+## Demo pipeline (ADIM 5)
+
+```
+transcripts/
+  ├── think_aloud_session1.txt   → profile: think_aloud (transcription-style cleanup)
+  ├── survey_responses.csv       → profile: survey (CSV columns: record_id, text)
+  └── moderator_notes.txt        → profile: moderator_notes (study text)
+           │
+           ▼
+   text_normalizer  →  explainability (XAI)  →  nielsen_mapper
+           │                    │                    │
+           └────────────────────┴────────────────────┘
+                                ▼
+                      report_generator
+                                ▼
+                    output/report.html
 ```
 
 ---
@@ -184,13 +200,24 @@ This engine is designed to slot into RUXAILAB's existing architecture without re
 
 ## Usage
 
-```bash
-# Single session
-python analyze.py --input transcripts/think_aloud_session1.txt --output output/report.html
+Run from the repo root (modules live alongside `analyze.py`). See `analyze.py` module docstring for the full pipeline (ingest → `ruxailab_nlp.normalize_text` → `SemanticAnalyzer` → `ExplainabilityEngine` → aggregate → HTML/JSON).
 
-# Batch (multiple sessions)
-python analyze.py --input transcripts/ --output output/report.html --method nielsen
+```bash
+cd ux-insight-engine
+
+# Full demo (default output: output/report.html)
+python3 analyze.py --input transcripts/
+
+# Explicit HTML path + title + confidence floor
+python3 analyze.py -i transcripts/ -o output/report.html --title "Q4 Study" --min-confidence 0.2
+
 ```
+
+Unit tests: `python3 -m unittest discover -s tests -p 'test_*.py' -t .` (the `-t .` flag puts the project root on `sys.path`).
+
+- **HTML**: `report_generator.generate_html_report` — study summary, per-finding cards, pipeline meta in the header; flags `--no-reasoning` / `--no-raw-text`.
+
+Regenerate **`output/report.html`** after pulling (that path is gitignored except `output/.gitkeep`).
 
 ---
 
@@ -207,17 +234,7 @@ This prototype covers the rule-based foundation. The GSoC engagement would exten
 ---
 
 
-
-| Module | 
-|------------|
-| `semantic_analysis.py` 
-| `text_normalizer.py` 
-| `nielsen_mapper.py` 
-| `sus_analyzer.py` 
-| `nasa_tlx_analyzer.py`
-| `explainability.py` 
-| `analyze.py` (CLI) 
-| `report.html` (sample output) 
+**Main modules:** `text_normalizer.py`, `semantic_analysis.py`, `explainability.py`, `ruxailab_methodology.py`, `nielsen_mapper.py`, `ruxailab_nlp.py`, `report_generator.py`, `analyze.py` (CLI). SUS and NASA-TLX live in `ruxailab_methodology.py` (tests call them directly).
 
 ---
 
