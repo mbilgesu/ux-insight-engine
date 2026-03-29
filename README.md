@@ -137,9 +137,17 @@ transcripts/
 
 ---
 
+## Sample Output
+
+Top of the HTML report after `python3 analyze.py --input transcripts/` (demo transcripts: think-aloud, survey CSV, moderator notes — tens of utterances across multiple issue categories). For the full scrollable report with all findings and the reasoning appendix, run the CLI and open **`output/report.html`** locally.
+
+![Report](docs/report_screenshot.png)
+
+---
+
 ## Sample HTML report
 
-Below: screenshots from `python3 analyze.py --input transcripts/` (example title *RUXAILAB Demo Study*). Open **`output/report.html`** locally after running the CLI for the interactive version (expandable reasoning chains, print layout).
+Additional static captures of deeper sections (all-findings table, recommendations, explainability appendix). They may not match the latest transcript set pixel-for-pixel; re-capture from your local **`output/report.html`** after `analyze.py` if you need figures aligned with current data.
 
 ### Study overview
 
@@ -242,18 +250,12 @@ python3 analyze.py -i transcripts/ -o output/report.html --title "Q4 Study" --mi
 
 ```
 
-The generated HTML lives under **`output/`** (gitignored except `.gitkeep`), so mentors do not see it on GitHub. Below is a committed static capture of the top of that report (same content as after `analyze.py` on the demo transcripts).
-
-![Sample HTML report — header, KPIs, heuristic chart, top findings](docs/report_screenshot.png)
-
-To reproduce the full interactive HTML locally:
+The generated HTML lives under **`output/`** (gitignored except `.gitkeep`), so it is not on GitHub. A committed preview of the report header is in **[Sample Output](#sample-output)** above.
 
 ```bash
 python3 analyze.py --input transcripts/
 open output/report.html   # macOS; or open the file in your browser
 ```
-
-Then you get the full interactive report (KPI row, heuristic chart, all findings, recommendations, optional raw text / reasoning appendix).
 
 Unit tests: `python3 -m unittest discover -s tests -p 'test_*.py' -t .` (the `-t .` flag puts the project root on `sys.path`).
 

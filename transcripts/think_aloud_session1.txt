@@ -1,3 +1,13 @@
-I could not find where to change my password.
-The page was really slow when I saved.
-Nothing happened when I clicked submit — confusing.
+# Session: checkout flow — P02, remote moderated test
+# Task 1 answer: I could not find where to change my shipping address before paying.
+
+[00:00:12] P02: I could not find where to change my shipping address before paying.
+[00:01:05] P02: The page was really slow when I tried to save my cart and I was not sure it worked.
+[00:02:18] P02: Nothing happened when I clicked submit on the payment form — very confusing.
+[00:03:40] P02: I did not see the error message at the bottom; the important warning blended into the footer.
+[00:04:55] P02: The labels on the checkout steps did not match what I expected from other shopping sites.
+[00:06:10] P02: After the upload failed I had no idea how to retry without losing everything I typed.
+[00:07:22] P02: The password requirements kept rejecting me but the inline validation did not say which rule failed.
+[00:08:35] P02: This payment page does not look like my bank’s site; I am worried it might be a scam.
+[00:09:50] P02: I was stuck on the spinner for almost a minute with no progress indicator or cancel option.
+[00:11:02] P02: I finally found export under profile but the back button took me to the wrong screen and I lost context.

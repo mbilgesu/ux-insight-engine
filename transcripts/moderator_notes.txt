@@ -1,3 +1,14 @@
-- P3 hesitated on Settings; poor UX for discoverability (H6/H8).
-- Participant noted UI felt cluttered; terminology did not match their mental model.
-- Post-task: user satisfied once they found export, but error recovery on failed upload was unclear.
+# Moderator notes — mobile banking prototype, March 2026 cohort
+
+Participant P04 hesitated on the main menu; could not locate transfers without help — clear navigation issue.
+P04 said the success toast disappeared too fast and they were not sure the transfer actually posted.
+The loading skeleton on the account list never resolved for several seconds; user assumed the app froze.
+Participant described the legal disclaimer wall as intimidating and wondered if the app was official.
+P05 struggled with the date picker: validation only said invalid date without explaining the required format.
+P05 tried to undo a mistaken recipient selection but there was no obvious way to go back one step.
+Participant missed the primary call to action because it looked like secondary grey text on a busy dashboard.
+P06 reported that after a network error the form cleared and they had to re-enter all beneficiary details.
+P06 said terminology for pending versus processing transactions did not match their mental model from other banks.
+Participant noted the biometric login prompt felt flaky; sometimes it failed silently with no explanation.
+P07 abandoned the flow when the CAPTCHA appeared twice in a row without any message about why.
+P07 commented that the help link opened a generic FAQ instead of context-sensitive guidance for transfers.
