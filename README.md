@@ -117,7 +117,7 @@ ruxailab-nlp-engine/
 └── README.md
 ```
 
-## Demo pipeline (ADIM 5)
+## Demo pipeline
 
 ```
 transcripts/
