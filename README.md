@@ -110,7 +110,9 @@ ruxailab-nlp-engine/
 │   ├── survey_responses.csv
 │   └── moderator_notes.txt
 ├── output/                          # generated reports (gitignored except .gitkeep)
-├── docs/images/                     # README screenshots (sample HTML report)
+├── docs/
+│   ├── report_screenshot.png        # static preview of HTML report (mentors; `output/` not in repo)
+│   └── images/                      # extra README figures (full report sections)
 ├── tests/
 └── README.md
 ```
@@ -197,7 +199,9 @@ Rewards both quantity of evidence and consistency of category signal.
 
 ---
 
-## Nielsen Heuristic Mapping (in progress)
+## Nielsen Heuristic Mapping
+
+Issue categories map to Nielsen heuristics via **`CATEGORY_DIRECT_MAP`** in `ruxailab_methodology.py` (primary and optional secondary heuristic per category). The table below is a short human-readable summary.
 
 ```
 navigation       → H6: Recognition over Recall
@@ -238,7 +242,18 @@ python3 analyze.py -i transcripts/ -o output/report.html --title "Q4 Study" --mi
 
 ```
 
-After a successful run, open **`output/report.html`** in a browser for the full report (KPI row, heuristic chart, findings, recommendations, and optional raw text / reasoning appendix). That file is produced locally under `output/` (gitignored except `.gitkeep`).
+The generated HTML lives under **`output/`** (gitignored except `.gitkeep`), so mentors do not see it on GitHub. Below is a committed static capture of the top of that report (same content as after `analyze.py` on the demo transcripts).
+
+![Sample HTML report — header, KPIs, heuristic chart, top findings](docs/report_screenshot.png)
+
+To reproduce the full interactive HTML locally:
+
+```bash
+python3 analyze.py --input transcripts/
+open output/report.html   # macOS; or open the file in your browser
+```
+
+Then you get the full interactive report (KPI row, heuristic chart, all findings, recommendations, optional raw text / reasoning appendix).
 
 Unit tests: `python3 -m unittest discover -s tests -p 'test_*.py' -t .` (the `-t .` flag puts the project root on `sys.path`).
 
